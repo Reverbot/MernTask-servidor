@@ -1,32 +1,29 @@
-const express =  require('express')
-const conectarDB = require('./config/db')
-const cors = require('cors')
+const express = require('express');
+const conectarDB = require('./config/db');
+const cors = require('cors');
 
-//creamos el servidor'
+// crear el servidor
+const app = express();
 
-const app = express()
+// Conectar a la base de datos
+conectarDB();
 
-//conectar a la base de datos
-conectarDB()
+// habilitar cors
+app.use(cors());
 
-//habilitar cors
-app.use(cors())
+// Habilitar express.json
+app.use( express.json({ extended: true }));
 
-//habilitar express.json()
-app.use(express.json({extenden : true}))
-    
-//puerto del  app
-const PORT = process.env.PORT || 4000
+// puerto de la app
+const port = process.env.PORT || 4000;
 
-//importar rutas
-app.use('/api/usuarios', require('./routes/usuarios'))
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/proyectos', require('./routes/proyectos'))
-app.use('/api/tareas', require('./routes/tareas'))
+// Importar rutas
+app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/proyectos', require('./routes/proyectos'));
+app.use('/api/tareas', require('./routes/tareas'));
 
-
-
-//arrancar el app
-app.listen(PORT, () => {
-    console.log(`en linea en el puerto ${PORT}`)
-})
+// arrancar la app
+app.listen(port, '0.0.0.0', () => {
+    console.log(`El servidor esta funcionando en el puerto ${port}`);
+});

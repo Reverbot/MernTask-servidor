@@ -1,22 +1,19 @@
-const mongoose = require('mongoose')
-require('dotenv').config({path : 'variables.env'})
+const mongoose = require('mongoose');
+require('dotenv').config({ path: 'variables.env' });
 
 const conectarDB = async () => {
-
-    try{
+    try {
         await mongoose.connect(process.env.DB_MONGO, {
-            useNewUrlParser : true,
+            useNewUrlParser: true,
             useUnifiedTopology: true,
-            useFindAndModify : true,
-            useCreateIndex : true
-        })
-        console.log('DB conected')
-
-    }catch(error){
-        console.log(error)
-        process.exit(1) //detener el app
+            useFindAndModify: false
+        });
+        console.log('DB Conectada');
+    } catch (error) {
+        console.log('hubo un error')
+        console.log(error);
+        process.exit(1); // Detener la app
     }
 }
 
-
-module.exports = conectarDB
+module.exports = conectarDB;

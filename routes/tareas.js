@@ -1,38 +1,36 @@
-const express = require('express')
-const router = express.Router()
-const TareaController = require('../controllers/tareaController')
-const auth = require('../middleware/auth')
-const {check}  = require('express-validator')   
+const express = require('express');
+const router = express.Router();
+const tareaController = require('../controllers/tareaController');
+const auth = require('../middleware/auth');
+const { check } = require('express-validator');
 
-
-//crear una tarea
-//api/tareas
-router.post('/',
+// crear una tarea
+// api/tareas
+router.post('/', 
     auth,
     [
-        check('nombre', 'El nombre es obligatorio').not().isEmpty(),
-        check('proyecto', 'El proyecto es obligatorio').not().isEmpty()
+        check('nombre', 'El Nombre es obligatorio').not().isEmpty(),
+        check('proyecto', 'El Proyecto es obligatorio').not().isEmpty()
     ],
-    TareaController.crearTarea
-)
+    tareaController.crearTarea
+);
 
-//obtener tareas por proyecto
-
+// Obtener las tareas por proyecto
 router.get('/',
     auth,
-    TareaController.obtenerTareas
-)
+    tareaController.obtenerTareas
+);
 
-//actualizar tarea
+// Actualizar tarea
 router.put('/:id', 
     auth,
-    TareaController.actualizarTarea
-)
+    tareaController.actualizarTarea
+);
 
-//eliminar una tarea
-router.delete('/:id',
+// Eliminar tarea
+router.delete('/:id', 
     auth,
-    TareaController.eliminarTarea
-)
+    tareaController.eliminarTarea
+);
 
-module.exports = router
+module.exports = router;
